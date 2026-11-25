@@ -5,10 +5,11 @@ Review what a Flagsmith release would change before approving it. Supply a small
 ## Try the review dashboard
 
 ```sh
+npm ci
 node review-server.mjs
 ```
 
-Open http://127.0.0.1:4337. The built-in demo shows a candidate that accidentally turns on express checkout for anonymous visitors. Select **Trial customers only** and run the preflight again. Enter a reviewer name to download the approval record for the corrected candidate. Demo records identify their simulated data. For live review, start the server with environment keys and select **Live Flagsmith**. The dashboard listens on loopback and keeps the keys on the server.
+Open http://127.0.0.1:4337. The built-in demo uses the official Flagsmith Node SDK to evaluate local environment snapshots. The first candidate accidentally turns on express checkout for anonymous visitors. Select **Trial customers only** and run preflight again. Enter a reviewer name to download the approval record for the corrected candidate. Demo approval records identify the scenario. For live review, start the server with environment keys and select **Live Flagsmith**. The dashboard listens on loopback and keeps the keys on the server.
 
 ## Run a check
 

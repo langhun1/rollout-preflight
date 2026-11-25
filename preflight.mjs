@@ -67,9 +67,10 @@ export async function inspect(config, { demo = null } = {}) {
     names.add(name)
   }
   const rows = []
+  const offline = demo ? await import('./demo-flagsmith.mjs') : null
   for (const profile of profiles) {
     const { name, expected } = profile
-    const [before, after] = demo ? demoStates(profile, demo) : await Promise.all([
+    const [before, after] = offline ? await offline.demoStates(flag, profile, demo) : await Promise.all([
       evaluate(api, baseline, flag, profile),
       evaluate(api, candidate, flag, profile),
     ])
@@ -88,16 +89,6 @@ export async function inspect(config, { demo = null } = {}) {
   const evidence = { api: api?.href ?? null, demo, flag, profiles, rows, status, sameEnvironment }
   const digest = createHash('sha256').update(JSON.stringify([baseline, candidate, evidence])).digest('hex')
   return { ...evidence, digest }
-}
-
-function demoStates(profile, mode) {
-  const eligible = profile.traits?.plan === 'trial'
-  const accidentallyEnabled = mode === 'drift' && !profile.identity
-  const candidateEnabled = eligible || accidentallyEnabled
-  return [
-    { enabled: false, value: null },
-    { enabled: candidateEnabled, value: candidateEnabled ? 'express' : null },
-  ]
 }
 
 export function approvalRecord(report, digest, reviewer) {

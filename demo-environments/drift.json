@@ -1,0 +1,66 @@
+{
+  "id": 102,
+  "name": "Candidate with a public default",
+  "api_key": "offline-demo-102",
+  "project": {
+    "id": 700,
+    "name": "Checkout demo",
+    "hide_disabled_flags": false,
+    "organisation": {
+      "id": 300,
+      "name": "Rollout Preflight demo",
+      "feature_analytics": false,
+      "stop_serving_flags": false,
+      "persist_trait_data": false
+    },
+    "segments": [
+      {
+        "id": 81,
+        "name": "Returning subscribers",
+        "rules": [
+          {
+            "type": "ALL",
+            "rules": [],
+            "conditions": [
+              {
+                "operator": "EQUAL",
+                "value": "subscriber",
+                "property_": "plan"
+              }
+            ]
+          }
+        ],
+        "feature_states": [
+          {
+            "feature": {
+              "id": 100,
+              "name": "checkout_express",
+              "type": "STANDARD"
+            },
+            "enabled": false,
+            "django_id": 105,
+            "feature_state_value": null,
+            "featurestate_uuid": "00000000-0000-4000-8000-000000000105",
+            "feature_segment": {
+              "priority": 1
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "feature_states": [
+    {
+      "feature": {
+        "id": 100,
+        "name": "checkout_express",
+        "type": "STANDARD"
+      },
+      "enabled": true,
+      "django_id": 102,
+      "feature_state_value": "express",
+      "featurestate_uuid": "00000000-0000-4000-8000-000000000102"
+    }
+  ],
+  "identity_overrides": []
+}

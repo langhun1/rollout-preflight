@@ -35,7 +35,7 @@ function render() {
   }[report?.status] ?? 'Waiting for scan'
   ui.status.dataset.tone = report?.status === 'blocked' ? 'warn' : report ? 'good' : ''
   ui.evidence.textContent = report
-    ? `${report.demo ? 'Simulated decisions' : 'Flagsmith API'} · Review digest ${report.digest}`
+    ? `${report.demo ? 'Flagsmith SDK · Demo snapshots' : 'Flagsmith API'} · Review digest ${report.digest}`
     : 'Run preflight to load flag decisions.'
   ui.approvalInfo.textContent = report?.status === 'ready for review'
     ? 'Approval checks the current decisions again and downloads a record for your release review.'

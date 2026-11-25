@@ -1,0 +1,32 @@
+{
+  "id": 101,
+  "name": "Production",
+  "api_key": "offline-demo-101",
+  "project": {
+    "id": 700,
+    "name": "Checkout demo",
+    "hide_disabled_flags": false,
+    "organisation": {
+      "id": 300,
+      "name": "Rollout Preflight demo",
+      "feature_analytics": false,
+      "stop_serving_flags": false,
+      "persist_trait_data": false
+    },
+    "segments": []
+  },
+  "feature_states": [
+    {
+      "feature": {
+        "id": 100,
+        "name": "checkout_express",
+        "type": "STANDARD"
+      },
+      "enabled": false,
+      "django_id": 101,
+      "feature_state_value": null,
+      "featurestate_uuid": "00000000-0000-4000-8000-000000000101"
+    }
+  ],
+  "identity_overrides": []
+}
