@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rollout Preflight</title>
+<style>
+:root{font-family:Inter,"Segoe UI",sans-serif;background:#11181b;color:#eef2ec;color-scheme:dark;--line:#354348;--panel:#192327;--muted:#a6b4b5;--lime:#d9fa86;--amber:#ffb78c}
+*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:58px 32px 72px}
+h1{font-size:clamp(2.9rem,7vw,5.6rem);line-height:.95;letter-spacing:-.085em;margin:15px 0 20px}
+p{line-height:1.55;color:var(--muted);margin:0}tt,code,textarea{font-family:"Cascadia Code",Consolas,monospace}
+header{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:36px}header p{max-width:36rem}.tag{color:var(--lime);font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:18px}
+.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:16px 19px;border-bottom:1px solid var(--line)}.toolbar label{color:var(--muted);font-size:.86rem}.toolbar button:first-of-type{margin-left:auto}
+button,select,input,textarea{font:inherit;border:1px solid #475a61;border-radius:8px;background:#121b20;color:#eef2ec;padding:9px 12px}button{cursor:pointer;font-weight:650}button:disabled{opacity:.45;cursor:default}
+button.primary{background:var(--lime);border-color:var(--lime);color:#14200c}button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+.headline{padding:22px 20px 16px;display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+h2{font-size:1.3rem;letter-spacing:-.035em;margin:0}.badge{font-size:.84rem;font-weight:700;border:1px solid var(--line);border-radius:50px;padding:5px 11px}.badge[data-tone=warn]{color:var(--amber);border-color:#724f42}.badge[data-tone=good]{color:var(--lime);border-color:#586939}
+.scroll{overflow:auto}table{border-collapse:collapse;width:100%;min-width:610px;text-align:left}th,td{padding:13px 20px;border-top:1px solid var(--line);vertical-align:top}thead th{color:var(--muted);font-size:.8rem;font-weight:650}tbody th{font-size:.94rem}td{font-size:.87rem}.state{font-family:"Cascadia Code",Consolas,monospace;color:#d4ded9}.warn{color:var(--amber)}.ok{color:var(--lime)}
+.foot{border-top:1px solid var(--line);padding:13px 20px;color:var(--muted);font-size:.83rem;overflow-wrap:anywhere}.reviewBox{padding:19px 20px;display:flex;align-items:end;gap:13px;flex-wrap:wrap}
+.reviewBox p{flex:1 1 290px}.reviewBox label{display:grid;gap:6px;color:var(--muted);font-size:.84rem}.note{font-size:.83rem}.message{color:var(--amber);min-height:1.55em;margin:14px 0 0}.message[data-tone=good]{color:var(--lime)}
+details{padding:12px 20px;border-bottom:1px solid var(--line)}summary{cursor:pointer}textarea{display:block;margin-top:11px;width:100%;min-height:155px;font-size:.87rem}
+@media(max-width:650px){main{padding:36px 17px}header{display:block}.toolbar button:first-of-type{margin-left:0}.reviewBox button{width:100%}}
+</style>
+<script type="module" src="/review.mjs"></script>
+</head>
+<body>
+<main>
+<header>
+<div><div class="tag">Flagsmith release review</div><h1>Rollout Preflight</h1><p>Compare flag decisions by user profile before you approve a release.</p></div>
+</header>
+<section class="panel" aria-label="Release scan">
+<div class="toolbar">
+<label for="mode">Data source</label>
+<select id="mode"><option value="demo">Demo data</option><option value="live">Live Flagsmith</option></select>
+<label for="scenario" id="scenarioLabel">Candidate</label>
+<select id="scenario"><option value="drift">Public exposure</option><option value="fixed">Trial customers only</option></select>
+<button class="primary" id="scan" type="button">Run preflight</button>
+</div>
+<details id="contractBox" hidden><summary>Live release contract</summary><textarea id="contract" aria-label="Release contract in JSON" spellcheck="false"></textarea></details>
+<div class="headline"><h2 id="feature">Release impact</h2><span id="status" class="badge" aria-live="polite">Waiting for scan</span></div>
+<div class="scroll"><table aria-label="Flag decisions by user profile"><thead><tr><th scope="col">User profile</th><th scope="col">Baseline</th><th scope="col">Candidate</th><th scope="col">Contract check</th></tr></thead><tbody id="rows"></tbody></table></div>
+<div class="foot" id="evidence"></div>
+</section>
+<section class="panel reviewBox" aria-label="Human approval">
+<p id="approvalInfo">Run a passing comparison to enable approval.</p>
+<label for="reviewer">Reviewer<input id="reviewer" autocomplete="off" placeholder="Your name" maxlength="90"></label>
+<button id="approve" type="button" disabled>Approve &amp; download</button>
+</section>
+<p id="message" class="message" role="status"></p>
+</main>
+</body>
+</html>
+

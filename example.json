@@ -1,0 +1,8 @@
+{
+  "flag": "show_demo_button",
+  "profiles": [
+    {"name":"Visitors without an account", "expected":"unchanged"},
+    {"name":"Trial customers", "identity":"preflight-example-trial", "traits":{"plan":"trial"}, "expected":"unchanged"}
+  ]
+}
+
